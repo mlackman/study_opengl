@@ -18,7 +18,7 @@ private:
     virtual void cleanup();
 
 
-private:
+protected:
 
     GLFWwindow* window;
 };

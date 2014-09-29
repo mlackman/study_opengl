@@ -34,7 +34,19 @@ private:
         glClearBufferfv(GL_COLOR, 0, color);
 
         glUseProgram(program);
+
+        // Use this code in comments to move the triange with mouse and
+        // comment out the other attrib definition
+        /* 
+        double mouseX, mouseY;
+        glfwGetCursorPos(window, &mouseX, &mouseY);
         
+        GLfloat attrib[] = {
+            (float)mouseX/320.0f-1.0f,
+            -(float)mouseY/240.0f+1.0f,
+            0.0f,
+            0.0f
+        };*/
         GLfloat attrib[] = {
             (float)sin(current_time) * 0.5f,
             (float)cos(current_time) * 0.6f,
@@ -43,6 +55,8 @@ private:
         };
         // update the value of vertex shader input attribute 0
         glVertexAttrib4fv(0, attrib);
+
+
 
         glDrawArrays(GL_TRIANGLES, 0, 3);
     }
