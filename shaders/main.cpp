@@ -11,17 +11,25 @@ private:
     void setup() {
         GLuint vertex_shader = create_shader("vertex.shd", GL_VERTEX_SHADER);
         GLuint fragment_shader = create_shader("fragment.shd", GL_FRAGMENT_SHADER);
+        GLuint tcs_shader = create_shader("tcs.shd", GL_TESS_CONTROL_SHADER);
+        GLuint tes_shader = create_shader("tes.shd", GL_TESS_EVALUATION_SHADER);
 
         program = glCreateProgram();
         glAttachShader(program, vertex_shader);
+        glAttachShader(program, tcs_shader);
+        glAttachShader(program, tes_shader);
         glAttachShader(program, fragment_shader);
         glLinkProgram(program);
 
         glDeleteShader(vertex_shader);
         glDeleteShader(fragment_shader);
+        glDeleteShader(tcs_shader);
+        glDeleteShader(tes_shader);
 
         glGenVertexArrays(1, &vertex_array_object);
         glBindVertexArray(vertex_array_object);
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     }
 
     void render(double current_time) {
@@ -58,7 +66,7 @@ private:
 
 
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_PATCHES, 0, 3);
     }
 
     void cleanup() {
@@ -79,3 +87,4 @@ int main(void)
    
     return 0;
 }
+
