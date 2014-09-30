@@ -38,8 +38,8 @@ private:
     void render(double current_time) {
         GLfloat color[] = {
             (float)sin(current_time) * 0.5f + 0.5f,
-            (float)cos(current_time) * 0.5f + 0.5f,
-            0.0f, 
+            0.0f,
+            (float)cos(current_time) * 0.5f + 0.5f, 
             1.0f
         };
         glClearBufferfv(GL_COLOR, 0, color);
