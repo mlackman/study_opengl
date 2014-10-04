@@ -62,7 +62,7 @@ private:
         glEnableVertexAttribArray(0);
 
         glBindBuffer(GL_ARRAY_BUFFER, buffers[1]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(colors), data, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
         
         glVertexAttribPointer(glGetAttribLocation(program, "color"),        // Attribute from opengl
                               4,        // 4 components,
