@@ -27,6 +27,30 @@ private:
 
         generate_data_to_buffer();
 
+        
+        
+    }
+
+    void generate_data_to_buffer() {
+        static const GLfloat data[] = {
+             0.25, -0.25, 0.5, 1.0,
+            -0.25, -0.25, 0.5, 1.0,
+             0.25,  0.25, 0.5, 1.0,
+        };
+
+        static const GLfloat colors[] = {
+            0.5, 0.1, 0.5, 1.0, 
+            0.7, 0.2, 0.0, 1.0,
+            0.1, 1.0, 0.9, 1.0
+        };
+
+        GLuint buffers[2];
+        // Generate name for two buffers
+        glGenBuffers(2, buffers);
+        // Bind it to the context using GL_ARRAY_BUFFER binding point
+        glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_STATIC_DRAW);
+
         // Tell the opengl where the data is and turn automatic vertex fetching on for
         // specified attribute
         glVertexAttribPointer(0,        // Attribute 0
@@ -36,24 +60,17 @@ private:
                               0,        // Tightly packed
                               NULL);    // offset 0
         glEnableVertexAttribArray(0);
+
+        glBindBuffer(GL_ARRAY_BUFFER, buffers[1]);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(colors), data, GL_STATIC_DRAW);
         
-    }
-
-    void generate_data_to_buffer() {
-        GLuint buffer;
-        // Generate name for single buffer
-        glGenBuffers(1, &buffer);
-
-        // Bind it to the context using GL_ARRAY_BUFFER binding point
-        glBindBuffer(GL_ARRAY_BUFFER, buffer);
-
-        static const float data[] = {
-             0.25, -0.25, 0.5, 1.0,
-            -0.25, -0.25, 0.5, 1.0,
-             0.25,  0.25, 0.5, 1.0,
-        };
-
-        glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_STATIC_DRAW);
+        glVertexAttribPointer(glGetAttribLocation(program, "color"),        // Attribute from opengl
+                              4,        // 4 components,
+                              GL_FLOAT, // Float data
+                              GL_FALSE, // Not normalized
+                              0,        // Tightly packed
+                              NULL);    // offset 0
+        glEnableVertexAttribArray(1);
     }
 
     void render(double current_time) {
