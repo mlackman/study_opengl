@@ -1,4 +1,5 @@
 #include <fstream>
+#include <cstdlib>
 
 void print_info_log(GLint obj, const std::string& filename) {
     GLsizei length;
@@ -15,7 +16,7 @@ std::string load_file(const std::string& filename) {
         return content;
     } else {
         std::cout << filename << " could not be opened!" << std::endl;
-        exit(-1);
+        std::exit(-1);
     }
 
 }

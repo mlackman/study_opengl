@@ -4,7 +4,6 @@
 #include <GLFW/glfw3.h>
 #include "openglapp.h"
 #include "util.h"
-
 class PixelApp : public OpenGLApp {
 private:
 

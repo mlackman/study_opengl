@@ -2,7 +2,7 @@
 #include <vector>
 #include <assert.h>
 #include <math.h>
-
+#define M_PI 3.14
 namespace math {
 
 template <int ROWS, int COLS> 
