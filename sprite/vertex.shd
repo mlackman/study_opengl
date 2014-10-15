@@ -1,14 +1,19 @@
 #version 420 core
 
 layout (location = 0) in vec4 vertex;
-layout (location = 1) in vec2 tc;
 out vec2 UV;
 
 uniform mat4 proj_matrix;
 uniform mat4 mv_matrix;
+const vec2 texels[] = {
+    vec2(0.0, 0.0),
+    vec2(1.0, 0.0),
+    vec2(1.0, 1.0),
+    vec2(0.0, 1.0),
+};
 
 void main(void) {
-    UV = tc;
+    UV = texels[gl_VertexID]; 
     
     gl_Position = proj_matrix * mv_matrix * vertex; 
 }

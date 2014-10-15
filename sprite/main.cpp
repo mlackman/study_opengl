@@ -54,19 +54,12 @@ private:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-        glGenBuffers(2, quad_buffers);
-        glBindBuffer(GL_ARRAY_BUFFER, quad_buffers[0]);
+        glGenBuffers(1, &quad_buffer);
+        glBindBuffer(GL_ARRAY_BUFFER, quad_buffer);
         glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
         glEnableVertexAttribArray(0);
 
-        glBindBuffer(GL_ARRAY_BUFFER, quad_buffers[1]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(texture_points), texture_points, GL_STATIC_DRAW);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-        glEnableVertexAttribArray(1);
-            
-        glBindVertexArray(vertex_array_object);    
-         glEnable(GL_BLEND);
     }
 
     void render(double current_time) {
@@ -88,7 +81,7 @@ private:
         glUniformMatrix4fv(proj_matrix_loc, 1, GL_FALSE, proj_matrix.array());
 
 
-        auto mv_matrix = math::translate( 0.0f, 0.0, -6.0);
+        auto mv_matrix = math::translate( 0.0f, 0.0, -12.0);
         auto mv_matrix_loc = glGetUniformLocation(program, "mv_matrix");
         glUniformMatrix4fv(mv_matrix_loc, 1, GL_FALSE, mv_matrix.array());
 
@@ -98,14 +91,14 @@ private:
     void cleanup() {
         glDeleteVertexArrays(1, &vertex_array_object);
         glDeleteProgram(program);
-        glDeleteBuffers(2, quad_buffers);
+        glDeleteBuffers(1, &quad_buffer);
         glDeleteTextures(1, &texture);
     }
 
 private:
     GLuint program;
     GLuint vertex_array_object;
-    GLuint quad_buffers[2];
+    GLuint quad_buffer;
     GLuint texture;
 };
 
