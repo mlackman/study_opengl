@@ -1,0 +1,11 @@
+#version 420 core
+
+uniform sampler2D tex_object;
+
+in vec2 UV;
+
+out vec4 color;
+
+void main(void) {
+    color = texture(tex_object,UV);   
+}

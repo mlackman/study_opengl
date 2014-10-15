@@ -1,0 +1,14 @@
+#version 420 core
+
+layout (location = 0) in vec4 vertex;
+layout (location = 1) in vec2 tc;
+out vec2 UV;
+
+uniform mat4 proj_matrix;
+uniform mat4 mv_matrix;
+
+void main(void) {
+    UV = tc;
+    
+    gl_Position = proj_matrix * mv_matrix * vertex; 
+}
