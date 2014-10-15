@@ -37,8 +37,8 @@ private:
         GLfloat texture_points[] = {
             0.0, 0.0,
             1.0, 0.0,
-            1.0, -1.0,
-            -1.0, -1.0,
+            1.0, 1.0,
+            0.0, 1.0,
         };
 
         glGenTextures(1, &texture);
@@ -47,23 +47,12 @@ private:
         int width, height;
         unsigned char* img = SOIL_load_image("icon.png", &width, &height, NULL, SOIL_LOAD_RGBA);   
 
-        /*width = 256;
-        height = 256;
-        */
-
-        //glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F, 256, 256);
         glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, width, height);
-
-        //auto tex_image = createTexture();
-        
-        //glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 256, 256, GL_RGBA, GL_FLOAT, tex_image.get());
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, img);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-        //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, tex_image.get());
 
         
-        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         glGenBuffers(2, quad_buffers);
         glBindBuffer(GL_ARRAY_BUFFER, quad_buffers[0]);
@@ -78,39 +67,6 @@ private:
             
         glBindVertexArray(vertex_array_object);    
          glEnable(GL_BLEND);
-
-        //glEnable(GL_CULL_FACE); 
-        //glFrontFace(GL_CW);
-
-        //glEnable(GL_DEPTH_TEST);
-        //glDepthFunc(GL_LEQUAL);
-    }
-
-    std::unique_ptr<float[]> createTexture() {
-        auto texture = std::unique_ptr<float[]>(new float[256*256 * 4]);
-
-        int x, y;
-        int width = 256;
-        int height = 256;
-
-        float * data = texture.get();
-
-        float i = 0;
-
-        for (y = 0; y < height; y++)
-        {
-            for (x = 0; x < width; x++)
-            {
-                data[(y * width + x) * 4 + 0] = i / 255.0f;
-                data[(y * width + x) * 4 + 1] = i / 255.0f;
-                data[(y * width + x) * 4 + 2] = i / 255.0f;
-                data[(y * width + x) * 4 + 3] = 1.0f;
-                i++;  
-            }
-            i = 0.0;
-        }
-
-        return texture;
     }
 
     void render(double current_time) {
